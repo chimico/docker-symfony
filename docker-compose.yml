@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 
 services:
     db:
@@ -19,9 +19,9 @@ services:
         build: nginx
         ports:
             - 80:80
-        volumes_from:
-            - php
         volumes:
+            - php:/var/www/symfony
+            - php:/var/www/symfony/app/logs
             - ./logs/nginx/:/var/log/nginx
     elk:
         image: willdurand/elk
@@ -30,6 +30,10 @@ services:
         volumes:
             - ./elk/logstash:/etc/logstash
             - ./elk/logstash/patterns:/opt/logstash/patterns
-        volumes_from:
-            - php
-            - nginx
+            - php:/var/www/symfony
+            - php:/var/www/symfony/app/logs
+            - nginx:/var/log/nginx
+
+volumes:
+    php:
+    nginx:
