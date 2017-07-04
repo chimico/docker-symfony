@@ -18,5 +18,6 @@ RUN "date"
 RUN docker-php-ext-install mysqli
 
 RUN echo 'alias sf="php bin/console"' >> ~/.bashrc
+RUN source ~/.bashrc
 
 WORKDIR /var/www/symfony
